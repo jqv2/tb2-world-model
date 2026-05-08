@@ -1,0 +1,24 @@
+# Data
+data/raw/*
+!data/raw/climb_log.csv
+data/poses/
+data/calibrations/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# ViTPose model weights
+*.pth
