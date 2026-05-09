@@ -1,3 +1,17 @@
+# Summary
+## Goal
+I aim to train a world model that learns how a climber’s body moves during boulder problems on the Kilter Board (a rock climbing training board with standardized holds + hold locations). Given a boulder problem defined as a subset of these holds, the goal is for the model to be able to autoregressively predict a sequence of full-body poses representing a (hopefully) plausible (and even more hopefully, good) way to climb the problem, outputting a pose overlay animation on the wall. The model will be trained on pose sequences from videos of many different boulders on the Kilter Board, and evaluated against a nearest-neighbor baseline to test whether the world model actually learned dynamics successfully and can generalize to new hold configurations.
+
+## Inputs/Outputs
+- **Input:** A boulder problem (a set of holds on the Kilter Board, each with board coordinates and role: start/middle/finish/foot-only).
+- **Output:** A sequence of full-body poses (17 COCO keypoints per frame) representing a plausible way to climb the problem, rendered as a skeleton overlay animation on the board.
+
+## Deliverables
+1. A data pipeline from raw climbing video -> cleaned pose sequences in board coordinates (ViTPose + homography calibration).
+2. A trained autoregressive world model that predicts pose sequences given a boulder problem.
+3. A quantitative comparison against a greedy climber + inverse kinematics baseline on held-out problems.
+4. Skeleton overlay visualizations of predicted climbs.
+
 # First checkpoint (5/8)
 ## Progress
 **Completed:**
