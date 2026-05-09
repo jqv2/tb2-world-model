@@ -74,3 +74,10 @@ COCO_SKELETON = [
 ########################
 
 VIDEO_EXTENSIONS = {".mov", ".mp4", ".avi", ".mkv"}
+
+########################
+# Evaluation
+########################
+
+# Metrics are computed only on keypoints above this confidence
+EVAL_CONFIDENCE_THRESHOLD = KEYPOINT_CONFIDENCE_THRESHOLD

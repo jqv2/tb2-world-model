@@ -4,7 +4,7 @@
 - Project scope and plan defined
 - Pipeline for extracting keypoints from training videos (and verifying that it works on the kinds of videos I'm taking)
 - Explored SQLite database from boardlib to see how to parse climb information, hold positions, etc.
-- TODO: Basic evaluation code with incredibly naive baseline.
+- Basic evaluation code with incredibly naive baseline (static climber).
 
 **In Progress:**
 - Collecting enough training videos
@@ -59,3 +59,98 @@ If so, there are additional questions I want to answer:
 - If the world model does not beat the baseline: either the data scale or the representation is insufficient to learn dynamics
 
 ### Current Evaluation Status
+
+I created a rough evaluation script and tested it on a very naive baseline (climber doesn't move). Here are the results on a handful of boulder problems.
+```
+=== Static Pose Baseline ===
+Baseline: predict first frame's pose for all subsequent frames
+
+centurion (505 frames):
+  Teacher forcing >>> mean: 287.15, median: 285.09, max: 562.79
+  Autoregressive  >>> error at 25%: 149.36, 50%: 289.44, 75%: 443.03, 100%: 561.04
+cheers (1225 frames):
+  Teacher forcing >>> mean: 352.34, median: 315.84, max: 682.15
+  Autoregressive  >>> error at 25%: 301.35, 50%: 306.00, 75%: 471.67, 100%: 675.14
+contact_wombat (423 frames):
+  Teacher forcing >>> mean: 214.38, median: 194.91, max: 424.00
+  Autoregressive  >>> error at 25%: 158.07, 50%: 196.74, 75%: 300.99, 100%: 419.77
+doobies_bounce (702 frames):
+  Teacher forcing >>> mean: 277.63, median: 257.08, max: 553.98
+  Autoregressive  >>> error at 25%: 112.42, 50%: 257.08, 75%: 426.23, 100%: 550.95
+joint_efforts (817 frames):
+  Teacher forcing >>> mean: 335.70, median: 303.92, max: 679.87
+  Autoregressive  >>> error at 25%: 195.98, 50%: 303.62, 75%: 536.48, 100%: 677.46
+mr_goobler (767 frames):
+  Teacher forcing >>> mean: 354.37, median: 334.47, max: 634.09
+  Autoregressive  >>> error at 25%: 233.43, 50%: 330.25, 75%: 507.72, 100%: 614.99
+preetty_legit_4a (674 frames):
+  Teacher forcing >>> mean: 258.56, median: 249.75, max: 520.02
+  Autoregressive  >>> error at 25%: 117.57, 50%: 248.40, 75%: 405.24, 100%: 515.58
+spider_boy (603 frames):
+  Teacher forcing >>> mean: 269.48, median: 248.90, max: 511.12
+  Autoregressive  >>> error at 25%: 152.25, 50%: 245.13, 75%: 402.44, 100%: 505.13
+tap_tap_tap (845 frames):
+  Teacher forcing >>> mean: 308.00, median: 333.01, max: 634.31
+  Autoregressive  >>> error at 25%: 155.58, 50%: 335.99, 75%: 454.89, 100%: 632.64
+warm_meh_2 (659 frames):
+  Teacher forcing >>> mean: 247.40, median: 254.61, max: 545.16
+  Autoregressive  >>> error at 25%: 107.58, 50%: 258.27, 75%: 360.99, 100%: 543.28
+you_dont_know_me (640 frames):
+  Teacher forcing >>> mean: 299.32, median: 270.53, max: 639.82
+  Autoregressive  >>> error at 25%: 110.07, 50%: 270.53, 75%: 489.53, 100%: 639.12
+bump_it (884 frames):
+  Teacher forcing >>> mean: 321.85, median: 321.05, max: 602.34
+  Autoregressive  >>> error at 25%: 198.49, 50%: 327.18, 75%: 442.51, 100%: 595.56
+cchhhhooooccccoooolllaaatteee (771 frames):
+  Teacher forcing >>> mean: 224.31, median: 217.08, max: 463.30
+  Autoregressive  >>> error at 25%: 139.11, 50%: 216.01, 75%: 302.68, 100%: 458.35
+chalk_the_chalk (805 frames):
+  Teacher forcing >>> mean: 290.98, median: 291.54, max: 634.60
+  Autoregressive  >>> error at 25%: 100.99, 50%: 289.98, 75%: 432.60, 100%: 630.04
+chanel (692 frames):
+  Teacher forcing >>> mean: 317.32, median: 301.45, max: 611.09
+  Autoregressive  >>> error at 25%: 168.34, 50%: 296.70, 75%: 474.17, 100%: 606.42
+easy_living (982 frames):
+  Teacher forcing >>> mean: 371.37, median: 379.18, max: 655.28
+  Autoregressive  >>> error at 25%: 251.25, 50%: 379.21, 75%: 511.81, 100%: 652.23
+easy_pinch (852 frames):
+  Teacher forcing >>> mean: 316.85, median: 301.49, max: 645.20
+  Autoregressive  >>> error at 25%: 151.36, 50%: 298.58, 75%: 462.45, 100%: 623.60
+elephant_trunk (749 frames):
+  Teacher forcing >>> mean: 334.12, median: 331.00, max: 642.12
+  Autoregressive  >>> error at 25%: 180.19, 50%: 331.69, 75%: 488.34, 100%: 632.83
+floats_your_boat (647 frames):
+  Teacher forcing >>> mean: 276.41, median: 255.19, max: 549.08
+  Autoregressive  >>> error at 25%: 145.50, 50%: 254.81, 75%: 407.40, 100%: 541.88
+goly (731 frames):
+  Teacher forcing >>> mean: 314.64, median: 326.11, max: 588.27
+  Autoregressive  >>> error at 25%: 215.92, 50%: 324.35, 75%: 448.07, 100%: 583.01
+jugs (753 frames):
+  Teacher forcing >>> mean: 298.62, median: 294.34, max: 530.22
+  Autoregressive  >>> error at 25%: 188.72, 50%: 299.48, 75%: 420.80, 100%: 522.27
+lowballin (1007 frames):
+  Teacher forcing >>> mean: 308.85, median: 323.17, max: 574.61
+  Autoregressive  >>> error at 25%: 138.93, 50%: 323.30, 75%: 502.77, 100%: 562.15
+one_step_two_step_red_step_blue_step (878 frames):
+  Teacher forcing >>> mean: 293.46, median: 294.07, max: 586.12
+  Autoregressive  >>> error at 25%: 134.75, 50%: 294.07, 75%: 451.50, 100%: 581.25
+pinch_me_im_dreaming (909 frames):
+  Teacher forcing >>> mean: 270.97, median: 291.15, max: 505.32
+  Autoregressive  >>> error at 25%: 156.23, 50%: 294.39, 75%: 359.28, 100%: 500.40
+sloth_twistie_twist (585 frames):
+  Teacher forcing >>> mean: 305.02, median: 284.51, max: 572.95
+  Autoregressive  >>> error at 25%: 170.53, 50%: 284.37, 75%: 460.35, 100%: 572.95
+sure_2 (933 frames):
+  Teacher forcing >>> mean: 358.79, median: 372.58, max: 683.92
+  Autoregressive  >>> error at 25%: 186.51, 50%: 373.03, 75%: 509.03, 100%: 681.45
+taco_bell (938 frames):
+  Teacher forcing >>> mean: 309.16, median: 319.13, max: 599.17
+  Autoregressive  >>> error at 25%: 151.56, 50%: 319.43, 75%: 464.36, 100%: 598.29
+tension_tension (672 frames):
+  Teacher forcing >>> mean: 281.07, median: 272.83, max: 589.11
+  Autoregressive  >>> error at 25%: 144.23, 50%: 275.57, 75%: 388.17, 100%: 587.86
+
+--- Aggregate (28 videos) ---
+  Teacher forcing >>> mean: 304.74, median: 299.85
+  Total frames evaluated: 21620
+```
